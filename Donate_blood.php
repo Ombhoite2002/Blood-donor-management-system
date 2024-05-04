@@ -9,43 +9,6 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-  <script>
-    $(document).ready(function() {
-        $('#donorForm').on('submit', function(event) {
-            event.preventDefault(); // Prevent default form submission
-
-            // Get form data
-            var formData = new FormData(this);
-
-            // Send form data via AJAX
-            $.ajax({
-                url: 'Savedata.php',
-                type: 'POST',
-                data: formData,
-                processData: false,
-                contentType: false,
-                success: function(response) {
-                    if (response.status === 'success') {
-                        $('#successModal').modal('show'); // Show success modal
-                        $('#donorForm')[0].reset(); // Reset the form
-                    } else {
-                        $('#errorModal .modal-body').text(response.message); // Update modal message
-                        $('#errorModal').modal('show'); // Show error modal
-                    }
-                },
-                error: function(xhr, status, error) {
-                    alert('Error: ' + status + '\n' + error); // Display error message in an alert
-                }
-            });
-        });
-
-        // Reset form fields when modal is closed
-        $('#successModal, #errorModal').on('hidden.bs.modal', function (e) {
-            $('#donorForm')[0].reset(); // Reset the form
-        });
-    });
-</script>
-
 
 </head>
 
@@ -62,7 +25,7 @@
             <h1 class="mt-5 mb-3">Donate Blood </h1>
           </div>
         </div>
-        <form id = "donorForm" name="donor" action="Savedata.php" method="post">
+        <form id="donorForm" name="donor" action="Savedata.php" method="post">
           <div class="row">
             <div class="col-lg-4 mb-4">
               <div class="font-italic">Full Name<span style="color:red">*</span></div>
@@ -134,45 +97,6 @@
     </div>
     <?php include ('Footer.php') ?>
   </div>
-  <!-- Success Modal -->
-<div class="modal fade" id="successModal" tabindex="-1" role="dialog" aria-labelledby="successModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="successModalLabel">Success!</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                Data submitted successfully!
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- Error Modal -->
-<div class="modal fade" id="errorModal" tabindex="-1" role="dialog" aria-labelledby="errorModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="errorModalLabel">Error!</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <!-- Error message will be inserted here -->
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-            </div>
-        </div>
-    </div>
-</div>
 </body>
 
 </html>
